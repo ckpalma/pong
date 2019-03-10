@@ -1,0 +1,218 @@
+I. Design Patterns Revisited
+  1. Command
+  2. Flyweight
+  3. Observer
+  4. Prototype
+  5. Singleton
+  6. State
+  
+II. Sequencing Patterns
+  7. Double Buffer
+  8. Game Loop
+  9. Update Method
+  
+III. Behavioral Patterns
+  10. Bytecode
+  11. Subclass Sandbox
+  12. Type Object
+  
+IV. Decoupling Patterns
+  13. Component
+  14. Event Queue
+  15. Service Locator
+  
+V. Optimization Patterns
+  16. Data Locality
+  17. Dirty Flag
+  18. Object Pool
+  19. Spatial Partition
+  
+
+===============================================================================
+                                   COMMAND
+===============================================================================
+  Use when:
+    1) Configuring input.
+    2) Directions for actors.
+    3) Undo and redo.
+    
+  The Pattern:
+    "Encapsulate a request as an object, thereby letting users parameterize clients with different requests, queue or log requests, and support undoable operations."
+    
+    "A command is a reified method call."
+    
+    "Commands are an object-oriented replacement for callbacks."
+
+
+===============================================================================
+                                  FLYWEIGHT
+===============================================================================
+  Use when:
+    1) Objects need to be more lightweight because you have too many of them.
+    
+  The Pattern:
+    The pattern solves that by separating out an object’s data into two kinds. The first kind of data is the stuff that’s not specific to a single instance of that object and can be shared across all of them. The rest of the data is the extrinsic state, the stuff that is unique to that instance.
+
+
+===============================================================================
+                                  OBSERVER
+===============================================================================
+  Use when:
+    1) Decoupling notification systems and code.
+    2) Notifications are made without caring for who receives it.
+  The Pattern:
+    We’ll start with the observer class that wants to know when another object does something interesting. The notification method is invoked by the object being observed, namely the subject class. The subject communicates with the observers, but it isn’t coupled to them. It’s also important that the subject has a list of observers instead of a single one. It makes sure that observers aren’t implicitly coupled to each other.
+
+
+===============================================================================
+                                  PROTOTYPE
+===============================================================================
+  Use when:
+    1) Reusing data to avoid duplication.
+  The Pattern:
+    The key idea is that an object can create other objects similar to itself. One neat part about this pattern is that it doesn’t just clone the class of the prototype, it clones its state too.
+    
+    To find a field or call a method on some object, we first look in the object itself. If it has it, we’re done. If it doesn’t, we look at the object’s parent. This is just a reference to some other object. When we fail to find a property on the first object, we try its parent, and its parent, and so on. In other words, failed lookups are delegated to an object’s parent.
+
+
+===============================================================================
+                                  SINGLETON
+===============================================================================
+  DO NOT USE.
+  The Pattern:
+    Ensure a class has one instance and provide a global point of access to it.
+    
+  Why we don't use it:
+    1) May need more than one instance, like a logger for each class to log.
+    2) Global variables add complexity in reasoning and debugging.
+    
+  Alternatively:
+    1) See if you need the class at all.
+    2) Use an assert and bool variable to limit a class to a single instance.
+    3) To get convenient access to an instance:
+      i) Pass it in as an argument to a function, if context of method fits.
+      ii) Get it from a base class.
+      iii) Get it from something already global.
+      iv) Get it from a service locator.
+    
+
+
+===============================================================================
+                                    STATE
+===============================================================================
+  Use when:
+    1) You have an entity whose behavior changes based on some internal state.
+    2) State maybe divided to one of relatively low number of distinct options.
+    3) The entity responds to a series of inputs or events over time.
+    
+  The Pattern:
+    Allow an object to alter its behavior when its internal state changes. The object will appear to change its class. To do this, create a state interface with virtual methods for handling input and updating. Then, create classes for each state that implement the interface. Finally, delegate to the state, giving a pointer the the current state with the type of the interface; do this with the object/class that needs state.
+    
+    Make state objects either static for 'less stateful states' or instantiate states for 'more stateful states' that have more dynamic data. Encapsulate additional behaviors within the state class, like graphics changes, with entry and exit actions.
+    
+    For additional pieces of state that a subject may have, such as what a character does and what they carry, use concurrent state machines, to prevent combinatorially increasing number of states. Additionally, if state classes share code, use inheritance, called hierarchical state machines; an example is an "on ground" superstate for ground-based states.
+    Finally, to make the state machine be able to have a history, use pushdown automata and create a stack of pointers to states.
+
+
+*******************************************************************************
+                                DOUBLE BUFFER
+*******************************************************************************
+  Use when:
+    1) State is being modified incrementally.
+    2) That same state may be accessed in the middle of modification.
+    3) Want to prevent code acessing state from seeing work in progress.
+    4) Want to read state and don't want to wait while it's being written.
+    
+  The Pattern:
+    A buffered class encapsulates a buffer: a piece of state that can be modified. This buffer is edited incrementally, but we want all outside code to see the edit as a single atomic change. To do this, the class keeps two instances of the buffer: a next buffer and a current buffer.
+    
+    When information is read from a buffer, it is always from the current buffer. When information is written to a buffer, it occurs on the next buffer. When the changes are complete, a swap operation swaps the next and current buffers instantly so that the new buffer is now publicly visible. The old current buffer is now available to be reused as the new next buffer.
+
+
+*******************************************************************************
+                                  GAME LOOP
+*******************************************************************************
+  double previous = getCurrentTime();
+  double lag = 0.0;
+  while (true)
+  {
+    double current = getCurrentTime();
+    double elapsed = current - previous;
+    previous = current;
+    lag += elapsed;
+
+    processInput();
+
+    while (lag >= MS_PER_UPDATE)
+    {
+      update();
+      lag -= MS_PER_UPDATE;
+    }
+
+    render(lag / MS_PER_UPDATE);
+  }
+
+
+*******************************************************************************
+                                UPDATE METHOD
+*******************************************************************************
+
+
+
+-------------------------------------------------------------------------------
+                                  BYTECODE
+-------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------
+                              SUBCLASS SANDBOX
+-------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------
+                                 TYPE OBJECT
+-------------------------------------------------------------------------------
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                                  COMPONENT
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                                 EVENT QUEUE
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                               SERVICE LOCATOR
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                DATA LOCALITY
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                 DIRTY FLAG
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                 OBJECT POOL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                              SPATIAL PARTITION
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
