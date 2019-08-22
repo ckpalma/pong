@@ -1,0 +1,31 @@
+#ifndef INPUT_H
+#define INPUT_H
+
+///////////////////////////////////////////////////////////////////////////////
+
+// Key press constants
+typedef enum class Input {
+  UNSPECIFIED, UNAVAILABLE,
+  
+  P1_LEFT_JOY_XDIR, P1_LEFT_JOY_YDIR,
+  P1_RIGHT_JOY_XDIR, P1_RIGHT_JOY_YDIR,
+  P1_DPAD_UP, P1_DPAD_DOWN, P1_DPAD_LEFT, P1_DPAD_RIGHT,
+  P1_BUTTON_A, P1_BUTTON_B, P1_BUTTON_X, P1_BUTTON_Y,
+  P1_BUTTON_START, P1_BUTTON_BACK, P1_BUTTON_GUIDE,
+  P1_LEFT_BUMPER, P1_LEFT_TRIGGER,
+  P1_RIGHT_BUMPER, P1_RIGHT_TRIGGER,
+  
+  P2_LEFT_JOY_XDIR, P2_LEFT_JOY_YDIR,
+  P2_RIGHT_JOY_XDIR, P2_RIGHT_JOY_YDIR,
+  P2_DPAD_UP, P2_DPAD_DOWN, P2_DPAD_LEFT, P2_DPAD_RIGHT,
+  P2_BUTTON_A, P2_BUTTON_B, P2_BUTTON_X, P2_BUTTON_Y,
+  P2_BUTTON_START, P2_BUTTON_BACK, P2_BUTTON_GUIDE,
+  P2_LEFT_BUMPER, P2_LEFT_TRIGGER,
+  P2_RIGHT_BUMPER, P2_RIGHT_TRIGGER,
+  
+  CLOSE_WINDOW
+} Input;
+
+///////////////////////////////////////////////////////////////////////////////
+
+#endif

@@ -1,3 +1,4 @@
+============================
 I. Design Patterns Revisited
   1. Command
   2. Flyweight
@@ -5,27 +6,36 @@ I. Design Patterns Revisited
   4. Prototype
   5. Singleton
   6. State
-  
+============================
+
+****************************
 II. Sequencing Patterns
   7. Double Buffer
   8. Game Loop
   9. Update Method
-  
+****************************
+
+----------------------------
 III. Behavioral Patterns
   10. Bytecode
   11. Subclass Sandbox
   12. Type Object
-  
+----------------------------
+
+:::::::::::::::::::::::::::: 
 IV. Decoupling Patterns
   13. Component
   14. Event Queue
   15. Service Locator
-  
+::::::::::::::::::::::::::::
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 V. Optimization Patterns
   16. Data Locality
   17. Dirty Flag
   18. Object Pool
   19. Spatial Partition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   
 
 ===============================================================================

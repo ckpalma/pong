@@ -2,7 +2,7 @@
 # TODO: Move `libmongoclient.a` to /usr/local/lib so this can work on production servers
 #
  
-CC := g++ -std=c++11# This is the main compiler
+CC := g++ -std=c++17# This is the main compiler
 # CC := clang --analyze # and comment out the linker last line for sanity
 SRCDIR := src
 BUILDDIR := build
@@ -11,8 +11,8 @@ TARGET := bin/runner
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g -Wno-c++11-extensions -Wno-null-conversion # -Wall
-LIB := -L lib -lSDL2-2.0.0 -lSDL2_image-2.0.0
+CFLAGS := -g -Wno-c++11-extensions -Wno-null-conversion -Wno-deprecated # -Wall
+LIB := -L lib -lSDL2-2.0.0 -lSDL2_image-2.0.0 -lSDL2_ttf-2.0.0 -lSDL2_mixer-2.0.0 -lGLEW -framework OpenGL -framework GLUT
 INC := -I include
 
 $(TARGET): $(OBJECTS)
